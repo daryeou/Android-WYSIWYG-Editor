@@ -36,6 +36,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
@@ -45,7 +46,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.github.irshulx.EditorComponent;
 import com.github.irshulx.EditorCore;
-import com.github.irshulx.GlideApp;
 import com.github.irshulx.R;
 import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.EditorControl;
@@ -349,7 +349,7 @@ public class ImageExtensions extends EditorComponent {
         if(transition == null){
             transition = DrawableTransitionOptions.withCrossFade().crossFade(1000);
         }
-        GlideApp.with(imageView.getContext())
+        Glide.with(imageView.getContext())
                 .load(path)
                 .transition(transition)
                 .fitCenter()

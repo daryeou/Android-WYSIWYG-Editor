@@ -12,6 +12,10 @@ An iframe free text editor that uses native components in the content tree. Moti
 
 
 ## Changelog
+## [3.0.5 - 22 July 2022]
+Supported by @daryeou
+- Updates glide to 4.12.0
+- Removed GildeApp Annotation
 
 ## [3.0.4 - 30 July 2019]
 

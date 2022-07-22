@@ -1,4 +1,3 @@
-/build
 *.iml
 .gradle
 /local.properties
@@ -6,6 +5,5 @@
 /.idea/libraries
 .DS_Store
 .idea/caches/build_file_checksums.ser
-/build
 /captures
 .externalNativeBuild

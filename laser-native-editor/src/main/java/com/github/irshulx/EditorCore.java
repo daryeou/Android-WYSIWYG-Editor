@@ -825,6 +825,10 @@ public class EditorCore extends LinearLayout implements View.OnTouchListener {
         return editorSettings.placeHolder;
     }
 
+    public void removePlaceHolder() {
+        editorSettings.placeHolder = null;
+    }
+
     public boolean getAutoFucus() {
         return editorSettings.autoFocus;
     }

@@ -55,6 +55,8 @@ import com.github.irshulx.models.Node;
 import com.github.irshulx.models.RenderType;
 import com.github.irshulx.models.TextSettings;
 import org.jsoup.nodes.Element;
+
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -115,7 +117,7 @@ public class ImageExtensions extends EditorComponent {
         if(editorCore.getRenderType() == RenderType.Renderer) {
             loadImage(path, node.childs.get(0));
         }else{
-            View layout = insertImage(null,path,editorCore.getChildCount(),node.childs.get(0).content.get(0), false);
+            View layout = insertImage(null, null, path, editorCore.getChildCount(),node.childs.get(0).content.get(0), false);
             componentsWrapper. getInputExtensions().applyTextSettings(node.childs.get(0), (TextView) layout.findViewById(R.id.desc));
         }
     }
@@ -164,7 +166,7 @@ public class ImageExtensions extends EditorComponent {
         ((Activity) editorCore.getContext()).startActivityForResult(Intent.createChooser(intent, "Select an image"), editorCore.PICK_IMAGE_REQUEST);
     }
 
-    public View insertImage(Bitmap image, String url, int index, String subTitle, boolean appendTextline) {
+    public View insertImage(Bitmap image, File file, String url, int index, String subTitle, boolean appendTextline) {
         boolean hasUploaded = false;
         if(!TextUtils.isEmpty(url)) hasUploaded = true;
 
@@ -213,7 +215,7 @@ public class ImageExtensions extends EditorComponent {
             if(!hasUploaded){
                 lblStatus.setVisibility(View.VISIBLE);
                 childLayout.findViewById(R.id.progress).setVisibility(View.VISIBLE);
-                editorCore.getEditorListener().onUpload(image, uuid);
+                editorCore.getEditorListener().onUpload(image, file, uuid);
             }
         }else {
             desc.setEnabled(false);

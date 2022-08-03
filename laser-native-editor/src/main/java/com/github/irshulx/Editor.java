@@ -30,9 +30,11 @@ import com.github.irshulx.models.EditorTextStyle;
 import com.github.irshulx.models.EditorContent;
 import com.github.irshulx.models.RenderType;
 
+import java.io.File;
 import java.util.Map;
 
 public class Editor extends EditorCore {
+
     public Editor(Context context, AttributeSet attrs) {
         super(context, attrs);
         super.setEditorListener(null);
@@ -81,6 +83,7 @@ public class Editor extends EditorCore {
 
     public void render() {
         if (getRenderType() == RenderType.Editor) {
+            isFirst = 1;
             getInputExtensions().insertEditText(0, this.getPlaceHolder(), null);
         }
     }
@@ -266,7 +269,11 @@ public class Editor extends EditorCore {
     }
 
     public void insertImage(Bitmap bitmap) {
-        getImageExtensions().insertImage(bitmap,null, -1,null, true);
+        getImageExtensions().insertImage(bitmap, null,null, -1,null, true);
+    }
+
+    public void insertImage(Bitmap bitmap, File file) {
+        getImageExtensions().insertImage(bitmap, file,null, -1,null, true);
     }
 
     public void onImageUploadComplete(String url, String imageId) {

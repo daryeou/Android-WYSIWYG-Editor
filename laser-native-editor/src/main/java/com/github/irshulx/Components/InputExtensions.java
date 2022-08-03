@@ -70,6 +70,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.github.irshulx.EditorCore.isFirst;
 import static com.github.irshulx.models.TextSetting.TEXT_COLOR;
 
 /**
@@ -377,7 +378,6 @@ public class InputExtensions extends EditorComponent {
         editText.setPadding(0,30,0,30);
     }
 
-    static private int isFirst = 1;
     public TextView insertEditText(int position, String hint, CharSequence text) {
 //        String nextHint = isLastText(position) ? null : editorCore.getPlaceHolder();
         String nextHint = "";

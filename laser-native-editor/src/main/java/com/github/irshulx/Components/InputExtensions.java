@@ -378,10 +378,10 @@ public class InputExtensions extends EditorComponent {
         editText.setPadding(0,30,0,30);
     }
 
-    public TextView insertEditText(int position, String hint, CharSequence text) {
-//        String nextHint = isLastText(position) ? null : editorCore.getPlaceHolder();
-        String nextHint = "";
 
+
+    public TextView insertEditText(int position, String hint, CharSequence text) {
+        String nextHint = isLastText(position) ? null : editorCore.getPlaceHolder();
         if (editorCore.getRenderType() == RenderType.Editor) {
 
             /**
@@ -401,21 +401,13 @@ public class InputExtensions extends EditorComponent {
             final CustomEditText view = getNewEditTextInst(nextHint, text);
             editorCore.getParentView().addView(view, position);
             editorCore.setActiveView(view);
-            if (isFirst != 1) {
-                view.setHint(null);
-                final android.os.Handler handler = new android.os.Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        setFocus(view);
-                    }
-                }, 0);
-            } else {
-                isFirst = 0;
-                editorCore.removePlaceHolder();
-                view.setHint(hint);
-            }
-
+            final android.os.Handler handler = new android.os.Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setFocus(view);
+                }
+            }, 0);
             editorCore.setActiveView(view);
             return view;
         } else {

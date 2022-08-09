@@ -85,7 +85,7 @@ public class ImageExtensions extends EditorComponent {
         EditorControl imgTag = (EditorControl) view.getTag();
         if (!TextUtils.isEmpty(imgTag.path)) {
             node.content.add(imgTag.path);
-
+            node.bitmap = imgTag.bitmap;
             /**
              * for subtitle
              */
@@ -117,7 +117,7 @@ public class ImageExtensions extends EditorComponent {
         if(editorCore.getRenderType() == RenderType.Renderer) {
             loadImage(path, node.childs.get(0));
         }else{
-            View layout = insertImage(null, null, path, editorCore.getChildCount(),node.childs.get(0).content.get(0), false);
+            View layout = insertImage(node.bitmap, null, path, editorCore.getChildCount(),node.childs.get(0).content.get(0), false);
             componentsWrapper. getInputExtensions().applyTextSettings(node.childs.get(0), (TextView) layout.findViewById(R.id.desc));
         }
     }
@@ -175,7 +175,7 @@ public class ImageExtensions extends EditorComponent {
         ImageView imageView =  childLayout.findViewById(R.id.imageView);
         final TextView lblStatus =  childLayout.findViewById(R.id.lblStatus);
         final CustomEditText desc = childLayout.findViewById(R.id.desc);
-        if(!TextUtils.isEmpty(url)){
+        if(!TextUtils.isEmpty(url) && image == null){
             loadImageUsingLib(url, imageView);
         }else {
             imageView.setImageBitmap(image);
@@ -190,7 +190,7 @@ public class ImageExtensions extends EditorComponent {
         //      _Views.add(childLayout);
 
         // set the imageId,so we can recognize later after upload
-        childLayout.setTag(createImageTag(hasUploaded ? url : uuid));
+        childLayout.setTag(createImageTag(image, hasUploaded ? url : uuid));
         desc.setTag(createSubTitleTag());
 
 
@@ -211,7 +211,7 @@ public class ImageExtensions extends EditorComponent {
         if(!TextUtils.isEmpty(subTitle))
             componentsWrapper.getInputExtensions().setText(desc, subTitle);
         if(editorCore.getRenderType()== RenderType.Editor) {
-            BindEvents(childLayout);
+            BindEvents(childLayout, file);
             if(!hasUploaded){
                 lblStatus.setVisibility(View.VISIBLE);
                 childLayout.findViewById(R.id.progress).setVisibility(View.VISIBLE);
@@ -266,9 +266,10 @@ public class ImageExtensions extends EditorComponent {
         return subTag;
     }
 
-    public EditorControl createImageTag(String path) {
+    public EditorControl createImageTag(Bitmap image, String path) {
         EditorControl control = editorCore.createTag(EditorType.img);
         control.path = path;
+        control.bitmap = image;
         return control;
     }
     /*
@@ -300,7 +301,7 @@ public class ImageExtensions extends EditorComponent {
         ImageView imageView = childLayout.findViewById(R.id.imageView);
         CustomEditText text = childLayout.findViewById(R.id.desc);
 
-        childLayout.setTag(createImageTag(_path));
+        childLayout.setTag(createImageTag(null, _path));
         text.setTag(createSubTitleTag());
         if(!TextUtils.isEmpty(desc)) {
             componentsWrapper.getInputExtensions().setText(text, desc);
@@ -310,7 +311,7 @@ public class ImageExtensions extends EditorComponent {
         editorCore.getParentView().addView(childLayout);
 
         if(editorCore.getRenderType()== RenderType.Editor) {
-            BindEvents(childLayout);
+            BindEvents(childLayout, null);
         }
 
         return childLayout;
@@ -372,13 +373,14 @@ public class ImageExtensions extends EditorComponent {
         return null;
     }
 
-    public void onPostUpload(String url, String imageId) {
+    public void onPostUpload(String url, Bitmap bitmap, String imageId) {
         View view = findImageById(imageId);
         final TextView lblStatus = (TextView) view.findViewById(R.id.lblStatus);
         lblStatus.setText(!TextUtils.isEmpty(url) ? "Upload complete" : "Upload failed");
         if (!TextUtils.isEmpty(url)) {
             EditorControl control = editorCore.createTag(EditorType.img);
             control.path = url;
+            control.bitmap = bitmap;
             view.setTag(control);
             TimerTask timerTask = new TimerTask() {
                 @Override
@@ -399,7 +401,7 @@ public class ImageExtensions extends EditorComponent {
 
 
 
-    private void BindEvents(final View layout) {
+    private void BindEvents(final View layout, final File file) {
         final ImageView imageView = layout.findViewById(R.id.imageView);
         final View btn_remove = layout.findViewById(R.id.btn_remove);
 
@@ -410,6 +412,7 @@ public class ImageExtensions extends EditorComponent {
                 editorCore.getParentView().removeView(layout);
                 hideInputHint(index);
                 componentsWrapper.getInputExtensions().setFocusToPrevious(index);
+                editorCore.getEditorListener().onRemoved(v, file);
             }
         });
 

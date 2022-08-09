@@ -276,12 +276,12 @@ public class Editor extends EditorCore {
         getImageExtensions().insertImage(bitmap, file,null, -1,null, true);
     }
 
-    public void onImageUploadComplete(String url, String imageId) {
-        getImageExtensions().onPostUpload(url, imageId);
+    public void onImageUploadComplete(String url, Bitmap bitmap, String imageId) {
+        getImageExtensions().onPostUpload(url, bitmap, imageId);
     }
 
     public void onImageUploadFailed(String imageId) {
-        getImageExtensions().onPostUpload(null, imageId);
+        getImageExtensions().onPostUpload(null, null, imageId);
     }
     /*
      *

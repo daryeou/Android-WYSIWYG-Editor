@@ -407,7 +407,7 @@ public class InputExtensions extends EditorComponent {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setFocus(view);
+//                        setFocus(view);
                     }
                 }, 0);
             } else {

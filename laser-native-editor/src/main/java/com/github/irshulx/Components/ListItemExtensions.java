@@ -238,7 +238,7 @@ public class ListItemExtensions extends EditorComponent {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    editText.requestFocus();
+//                    editText.requestFocus();
                     InputMethodManager mgr = (InputMethodManager) editorCore.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
                     editText.setSelection(editText.getText().length());

@@ -83,7 +83,6 @@ public class Editor extends EditorCore {
 
     public void render() {
         if (getRenderType() == RenderType.Editor) {
-            isFirst = 1;
             getInputExtensions().insertEditText(0, this.getPlaceHolder(), null);
         }
     }

@@ -57,7 +57,6 @@ import java.util.regex.Pattern;
  * Created by mkallingal on 4/30/2016.
  */
 public class EditorCore extends LinearLayout implements View.OnTouchListener {
-    public static int isFirst = 1;
     public static final String TAG = "EDITOR";
     private EditorListener listener;
     private final int MAP_MARKER_REQUEST = 20;
@@ -821,13 +820,8 @@ public class EditorCore extends LinearLayout implements View.OnTouchListener {
         this.editorSettings.serialRenderInProgress = serialRenderInProgress;
     }
 
-
     public String getPlaceHolder() {
         return editorSettings.placeHolder;
-    }
-
-    public void removePlaceHolder() {
-        editorSettings.placeHolder = null;
     }
 
     public boolean getAutoFucus() {

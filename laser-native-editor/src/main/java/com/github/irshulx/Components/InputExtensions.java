@@ -70,7 +70,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.github.irshulx.EditorCore.isFirst;
 import static com.github.irshulx.models.TextSetting.TEXT_COLOR;
 
 /**
@@ -319,6 +318,8 @@ public class InputExtensions extends EditorComponent {
                             text = Html.toHtml(ssb);
                             if (text.length() > 0)
                                 setText(editText, text);
+                            else
+                                setText(editText, "");
 
 
                             if (i + 1 == s.length()) {
@@ -340,9 +341,8 @@ public class InputExtensions extends EditorComponent {
                             if (nextIndex < lastIndex) {
                                 newText = s.subSequence(nextIndex, lastIndex);
                                 for (int j = 0; j < newText.length(); j++) {
-                                    editable.append(newText.charAt(j));
-                                    if (newText.charAt(j) == '\n') {
-                                        editable.append('\n');
+                                    if (newText.charAt(j) != '\n') {
+                                        editable.append(newText.charAt(j));
                                     }
                                 }
                             }
@@ -693,7 +693,7 @@ public class InputExtensions extends EditorComponent {
         view.requestFocus();
         InputMethodManager mgr = (InputMethodManager) editorCore.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        view.setSelection(view.getText().length());
+//        view.setSelection(view.getText().length());
         editorCore.setActiveView(view);
     }
 

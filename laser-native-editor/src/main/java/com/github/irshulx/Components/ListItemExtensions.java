@@ -241,7 +241,7 @@ public class ListItemExtensions extends EditorComponent {
                     editText.requestFocus();
                     InputMethodManager mgr = (InputMethodManager) editorCore.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     mgr.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                    editText.setSelection(editText.getText().length());
+//                    editText.setSelection(editText.getText().length());
                 }
             }, 0);
         } else {

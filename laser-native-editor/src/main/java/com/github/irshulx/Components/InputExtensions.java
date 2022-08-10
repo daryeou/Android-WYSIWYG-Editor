@@ -222,6 +222,7 @@ public class InputExtensions extends EditorComponent {
 
     CharSequence GetSanitizedHtml(CharSequence text) {
         Spanned __ = Html.fromHtml(text.toString());
+//        Spanned __ = Html.fromHtml(text.toString().replace(" ", "&nbsp;"));
         CharSequence toReplace = noTrailingwhiteLines(__);
         return toReplace;
     }
@@ -401,6 +402,7 @@ public class InputExtensions extends EditorComponent {
             final CustomEditText view = getNewEditTextInst(nextHint, text);
             editorCore.getParentView().addView(view, position);
             editorCore.setActiveView(view);
+//            setFocus(view);
             final android.os.Handler handler = new android.os.Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -691,6 +693,7 @@ public class InputExtensions extends EditorComponent {
             return;
         }
         view.requestFocus();
+        view.setSelection(0);
         InputMethodManager mgr = (InputMethodManager) editorCore.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
 //        view.setSelection(view.getText().length());

@@ -781,9 +781,10 @@ public class EditorCore extends LinearLayout implements View.OnTouchListener {
                 nextFocus = inputExtensions.getEditTextPrevious(index);
 
                 if (nextFocus != null) {
+                    String previousText = nextFocus.getText().toString();
                     deleteFocusedPrevious(editText);
                     nextFocus.setText(nextFocus.getText().toString() + editText.getText().toString());
-                    nextFocus.setSelection(nextFocus.getText().length());
+                    nextFocus.setSelection(previousText.length());
                 }
             }
         }
